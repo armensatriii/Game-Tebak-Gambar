@@ -1,7 +1,6 @@
------Catatan App Game Tebak Gambar-----
-
-Nama Project            = Game Tebak Gambar 
-Nama Bahasa Pemograman  = HTML
+Catatan App Game Tebak Gambar
+- Nama Application = Game Tebak Gambar 
+- Nama Bahasa Pemograman  = HTML
 
 Library-yang-di-pakai 
 - Library Javascript : AlpinJS
