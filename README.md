@@ -9,6 +9,6 @@ Library-yang-di-pakai
 - Library Framework CSS : TailwindCSS
   [TailwindCSS Sumber: https://tailwindcss.com/]
   
-- Library CSS :Animate.css Animations
+- Library CSS : Animate.css Animations
   [Animate.css Sumber: https://animate.style/]
   
