@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Game Tebak Warna</title>
+
+    <!--Start Tailwind CSS-->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style type="text/tailwindcss">
+      @layer components {
+        .title {
+          @apply text-6xl font-bold text-center 
+          my-5 bg-gradient-to-r from-blue-500 
+          to-teal-400 bg-clip-text text-transparent;
+        }
+
+        .grid-container {
+          @apply grid grid-cols-2 gap-2 p-2 
+          content-center md:grid-cols-4 md:gap-4 
+          md:p-4;
+        }
+
+        .grid-card {
+          @apply aspect-[4/3] rounded-lg 
+          hover:scale-95 transition-all 
+          duration-500 cursor-pointer;
+        }
+      }
+    </style>
+    <!--End Tailwind CSS-->
+
+    <!--Start AlpineJS-->
+    <script
+      defer
+      src="https://unpkg.com/alpinejs@3.10.5/dist/cdn.min.js"
+    ></script>
+    <!--End AlpineJS-->
+
+    <!--Start Animate CSS-->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
+    <!--End Animate CSS-->
+  </head>
+
+  <body>
+    <div class="container" x-data="game()">
+      <h3 class="title">Tebak Warna</h3>
+
+      <!--Start tampilan kartu-->
+      <div class="grid-container">
+        <template x-for="card in cards">
+          <div class="aspect-[4/3]">
+            <div
+              class="grid-card"
+              :class="['bg-' + (card.flipped ? card.color : 'gray') + '-500', card.animate]"
+              @click="flipCard(card)"
+              x-show="!card.cleared"
+            ></div>
+          </div>
+        </template>
+      </div>
+      <!--End tampilan kartu-->
+    </div>
+
+    <script>
+      const delay = (milliseconds = 700) =>
+        new Promise((resolve) => setTimeout(resolve, milliseconds));
+
+      const game = () => {
+        return {
+          cards: [
+            { color: 'red', flipped: false, cleared: false, animate: '' },
+            { color: 'green', flipped: false, cleared: false, animate: '' },
+            { color: 'blue', flipped: false, cleared: false, animate: '' },
+            { color: 'yellow', flipped: false, cleared: false, animate: '' },
+            { color: 'red', flipped: false, cleared: false, animate: '' },
+            { color: 'green', flipped: false, cleared: false, animate: '' },
+            { color: 'blue', flipped: false, cleared: false, animate: '' },
+            { color: 'yellow', flipped: false, cleared: false, animate: '' },
+          ].sort(() => Math.random() - 0.5),
+
+          // ada berapa kartu yang lagi terbuka
+          get flippedCard() {
+            // filter kartu mana yang terbuka, mana kondisi yang tertutup
+            return this.cards.filter((card) => card.flipped);
+          },
+
+          // untuk mengetahui ada berapa kartu di halaman game
+          get remainingCard() {
+            return this.cards.filter((card) => !card.cleared);
+          },
+
+          async flipCard(card) {
+            // hanya bisa buka dua kartu
+            if (this.flippedCard.length === 2) return;
+            // buka atau tutup kartu
+            card.flipped = !card.flipped;
+
+            // cek ketika sudah ada 2 kartu yang terbuka, lalu cek warnanya sama atau tidak
+            if (this.flippedCard.length === 2) {
+              // jika kartu index ke 0 sama dengan kartu index ke 1, jika sama
+              if (this.flippedCard[0].color === this.flippedCard[1].color) {
+                // beri animasi sebelum hilang
+                this.flippedCard.forEach(
+                  (card) =>
+                    (card.animate = 'animate__animated animate__rubberBand')
+                );
+
+                // waktu warna yang muncul
+                await delay();
+                // looping card, selesai bernilai true, kartunya hilang
+                this.flippedCard.forEach((card) => (card.cleared = true));
+
+                // cek apakah kartu sudah hilang semua
+                if (this.remainingCard.length === 0) {
+                  alert('You WON!');
+                  // reload ulang game
+                  location.reload();
+                }
+              }
+
+              // beri animasi sebelum kartu di tutup kembali
+              this.flippedCard.forEach(
+                (card) => (card.animate = 'animate__animated animate__shakeX')
+              );
+
+              // waktu warna yang muncul
+              await delay();
+              // tutup lagi semua kartu, setelah pemeriksaan
+              this.flippedCard.forEach((card) => (card.flipped = false));
+
+              // hilangkan class animasinya
+              this.remainingCard.forEach((card) => (card.animate = ''));
+            }
+          },
+        };
+      };
+    </script>
+  </body>
+</html>
