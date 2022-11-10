@@ -13,11 +13,9 @@ Membuat game tebak gambar
     Library Javascript : 
     - AlpinJS
       - [AlpinJS Sumber: https://alpinejs.dev/]
-    
     Library Framework CSS : 
     - TailwindCSS
       - [TailwindCSS Sumber: https://tailwindcss.com/]
-
     Library CSS :
       - Animate.css Animations
         - [Animate.css Sumber: https://animate.style/]
