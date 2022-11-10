@@ -1,6 +1,6 @@
 -----Catatan App Game Tebak Gambar-----
 
-Nama Project            = Game Tebak Gambar
+Nama Project            = Game Tebak Gambar 
 Nama Bahasa Pemograman  = HTML
 
 Library-yang-di-pakai 
