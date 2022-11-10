@@ -1,7 +1,4 @@
-# Game-Tebak-Gambar
-Membuat game tebak gambar
-
------Catatan Project Web Application-----
+-----Catatan App Game Tebak Gambar-----
 
 Nama Project            = Game Tebak Gambar
 Nama Bahasa Pemograman  = HTML
